@@ -13,19 +13,30 @@ namespace NetNote.Controllers
     public class NoteController : Controller
     {
         private INoteRespository _noteRespository;
+        private INoteTypeRepository _noteTypeRepository;
 
-        public NoteController(INoteRespository noteRespository)
+        public NoteController(INoteRespository noteRespository,INoteTypeRepository noteTypeRepository)
         {
+            _noteTypeRepository = noteTypeRepository;
             _noteRespository = noteRespository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageindex=1)
         {
-            var notes = await _noteRespository.ListAsync();
-            return View(notes);
+            var pagesize = 5;
+            var notes = _noteRespository.PageList(pageindex, pagesize);
+            ViewBag.PageCount = notes.Item2;
+            ViewBag.PageIndex = pageindex;
+            return View(notes.Item1);
         }
         public async Task<IActionResult> Add()
         {
+            var types = await _noteTypeRepository.ListAsync();
+            ViewBag.Types = types.Select(r => new SelectListItem
+            {
+                Text = r.Name,
+                Value = r.Id.ToString()
+            });
             return View();
         }
         [HttpPost]
@@ -39,6 +50,7 @@ namespace NetNote.Controllers
             {
                 Tile = model.Tile,
                 Content = model.Content,
+               TypeId = model.Type==0?1:model.Type,
                 Create = DateTime.Now
             });
             return RedirectToAction("Index");

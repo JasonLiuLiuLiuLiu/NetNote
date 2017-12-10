@@ -25,6 +25,7 @@ namespace NetNote
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<INoteRespository, NoteRespository>();
+            services.AddScoped<INoteTypeRepository,NoteTypeRepository>();
             services.AddDbContext<NoteContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Context")));
             services.AddMvc();
         }

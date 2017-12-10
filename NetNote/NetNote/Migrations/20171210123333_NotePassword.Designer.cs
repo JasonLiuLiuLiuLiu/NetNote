@@ -11,9 +11,10 @@ using System;
 namespace NetNote.Migrations
 {
     [DbContext(typeof(NoteContext))]
-    partial class NoteContextModelSnapshot : ModelSnapshot
+    [Migration("20171210123333_NotePassword")]
+    partial class NotePassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

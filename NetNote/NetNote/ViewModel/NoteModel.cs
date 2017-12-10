@@ -17,5 +17,8 @@ namespace NetNote.ViewModel
         [Required]
         [Display(Name = "内容")]
         public string Content { get; set; }
+
+        [Display(Name = "类型")]
+        public int Type { get; set; }
     }
 }

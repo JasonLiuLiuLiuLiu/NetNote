@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using NetNote.Models;
 
@@ -11,5 +12,6 @@ namespace NetNote.Repository
 
         Task AddAsync(Note note);
         Task UpdateAsync(Note note);
+        Tuple<List<Note>, int> PageList(int pageindex, int pagesize);
     }
 }

@@ -1,10 +1,15 @@
-﻿@model NetNote.ViewModel.NoteModel
+﻿@using Microsoft.EntityFrameworkCore.Scaffolding.Internal
+@model NetNote.ViewModel.NoteModel
+@{
+    var types = ViewBag.Types as IEnumerable<SelectListItem>;
+}
+
 
 @{
     ViewData["Title"] = "Add";
 }
 
-<h2>Add</h2>
+@*<h2>Add</h2>
 <h4>NoteModel</h4>
 <hr />
 <div class="row">
@@ -29,5 +34,27 @@
 </div>
 <div>
     <a asp-action="Index">Back to List</a>
+</div>*@
+<div class="container-fluid">
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <form method="post" asp-action="Add">
+             <div class="form-group">
+                <label asp-for="Tile"></label>
+                <input asp-for="Tile" type="text" placeholder="标题" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Content"></label>
+                <textarea asp-for="Content" data-provide="markdown" rows="10" cols="50" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type"></label>
+                <select asp-for="Type" asp-items="types" class="form-control"></select>
+            </div>
+            <hr/>
+            <p>
+                <button type="submit" class="btn">保存</button>
+            </p>
+        </form>
+    </div>
 </div>
 
